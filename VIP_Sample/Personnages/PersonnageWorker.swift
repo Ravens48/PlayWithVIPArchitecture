@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PersonnageWorkerLogic {
-    func fetchPersonnages() async -> Result<PokemonApiResult, Error>
+    func fetchPersonnages() async -> Result<RickAndMortyResult, Error>
 }
 
 struct PersonnageWorker {
@@ -16,12 +16,12 @@ struct PersonnageWorker {
 
 extension PersonnageWorker: PersonnageWorkerLogic {
     
-    func fetchPersonnages() async -> Result<PokemonApiResult, Error> {
-        let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=10")!
+    func fetchPersonnages() async -> Result<RickAndMortyResult, Error> {
+        let url = URL(string: "https://rickandmortyapi.com/api/character")!
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             print("data", data)
-            let result = try JSONDecoder().decode(PokemonApiResult.self, from: data)
+            let result = try JSONDecoder().decode(RickAndMortyResult.self, from: data)
             return .success(result)
         } catch {
             return .failure(error)

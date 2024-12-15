@@ -8,8 +8,7 @@
 import SwiftUI
 
 protocol PersonnageDisplayLogic {
-    func displayPersonnage(pokemons:[Pokemon])
-    func displayPlaceHolderNoData()
+    func displayPersonnage(personnages:[Personnage])
 }
 
 struct PersonnageViewController: View {
@@ -17,16 +16,25 @@ struct PersonnageViewController: View {
     var interactor: PersonnageInteractorLogic?
     
     var body: some View {
-        VStack {
-            ForEach(personnageDataStore.pokemons, id: \.self.name) { pokemon in
-                VStack {
-                    Text(pokemon.name)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(20)
-                .border(.black)
-                .onTapGesture {
-                    print(pokemon.name)
+        ScrollView {
+            LazyVStack {
+                ForEach(personnageDataStore.personnages, id: \.self.id) { personnage in
+                    HStack {
+                        AsyncImage(url: URL(string: personnage.image)) { image in
+                            image.resizable()
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 50, height: 50)
+                        Spacer()
+                        Text(personnage.name)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(20)
+                    .border(.black)
+                    .onTapGesture {
+                        print(personnage.name)
+                    }
                 }
             }
         }
@@ -37,18 +45,12 @@ struct PersonnageViewController: View {
 }
 
 extension PersonnageViewController: PersonnageDisplayLogic {
-    func displayPersonnage(pokemons: [Pokemon]) {
+    func displayPersonnage(personnages: [Personnage]) {
         DispatchQueue.main.async {
-            personnageDataStore.pokemons = pokemons
+            personnageDataStore.personnages = personnages
             
         }
     }
-    
-    func displayPlaceHolderNoData() {
-        //
-    }
-    
-    
 }
 
 extension PersonnageViewController {

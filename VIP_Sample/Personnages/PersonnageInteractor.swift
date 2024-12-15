@@ -21,9 +21,9 @@ extension PersonnageInteractor: PersonnageInteractorLogic {
             let response = await worker.fetchPersonnages()
             switch response {
             case .success(let result):
-                presenter?.presentPersonnage(pokemonsResult: result)
-            case .failure(_):
-                presenter?.presentFailedFetchData()
+                presenter?.presentPersonnage(result: result)
+            case .failure(let failure):
+                print("failure, \(failure)")
             }
         }
     }

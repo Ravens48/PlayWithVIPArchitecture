@@ -8,6 +8,5 @@
 import Foundation
 
 class PersonnageDataStore: ObservableObject {
-    @Published var pokemons: [Pokemon] = []
-    @Published var name: String = ""
+    @Published var personnages: [Personnage] = []
 }

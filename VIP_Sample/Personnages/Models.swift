@@ -6,15 +6,33 @@
 //
 import Foundation
 
-struct PokemonApiResult: Codable {
-    let count: Int
+// MARK: - Welcome
+struct RickAndMortyResult: Codable {
+    let info: Info
+    let results: [Personnage]
+}
+
+// MARK: - Info
+struct Info: Codable {
+    let count, pages: Int
     let next: String
-    let previous: JSONNull?
-    let results: [Pokemon]
+    let prev: JSONNull?
 }
 
 // MARK: - Result
-struct Pokemon: Codable {
+struct Personnage: Codable {
+    let id: Int
+    let name, status, species, type: String
+    let gender: String
+    let origin, location: Location
+    let image: String
+    let episode: [String]
+    let url: String
+    let created: String
+}
+
+// MARK: - Location
+struct Location: Codable {
     let name: String
     let url: String
 }

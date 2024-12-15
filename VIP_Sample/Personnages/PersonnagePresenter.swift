@@ -6,8 +6,7 @@
 //
 
 protocol PersonnagePresenterLogic {
-    func presentPersonnage(pokemonsResult: PokemonApiResult)
-    func presentFailedFetchData()
+    func presentPersonnage(result: RickAndMortyResult)
 }
 
 class PersonnagePresenter {
@@ -15,12 +14,7 @@ class PersonnagePresenter {
 }
 
 extension PersonnagePresenter: PersonnagePresenterLogic {
-    func presentPersonnage(pokemonsResult: PokemonApiResult) {
-        self.view?.displayPersonnage(pokemons: pokemonsResult.results)
+    func presentPersonnage(result: RickAndMortyResult) {
+        self.view?.displayPersonnage(personnages: result.results)
     }
-    
-    func presentFailedFetchData() {
-        self.view?.displayPlaceHolderNoData()
-    }
-    
 }
